@@ -7,8 +7,17 @@
     body {
       font-family: Arial, sans-serif;
       padding: 30px;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
+    }
+    .cabecalho {
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #1a3f78;
     }
     input {
       width: 100%;
@@ -32,15 +41,24 @@
     }
     #resultado {
       margin-top: 20px;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
-      color: #1a3f78;
+      color: green;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
+  <div class="cabecalho">
+    <div>Prefeitura de Goiânia</div>
+    <div>Secretaria Municipal de Política para as Mulheres, Assistência Social e Direitos Humanos</div>
+    <div>Diretoria de Proteção Social Especial</div>
+    <div>Gerência de Proteção Social de Média Complexidade</div>
+  </div>
+
   <h2>Consulta de CREAS por Bairro</h2>
+
   <input type="text" id="bairroInput" placeholder="Digite o nome do bairro..." oninput="mostrarSugestoes()">
   <ul id="sugestoes"></ul>
   <div id="resultado"></div>
@@ -57,7 +75,7 @@
       const cabecalho = linhas[0].split(',');
 
       for (let i = 1; i < linhas.length; i++) {
-        const linha = linhas[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // separa considerando vírgulas dentro de aspas
+        const linha = linhas[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
         const bairro = linha[0]?.replace(/(^"|"$)/g, "").trim();
         const creas = linha[1]?.replace(/(^"|"$)/g, "").trim();
 
@@ -85,7 +103,7 @@
         li.onclick = () => {
           document.getElementById("bairroInput").value = item.bairro;
           sugestoesEl.innerHTML = "";
-          resultadoEl.textContent = `O bairro "${item.bairro}" é atendido pelo ${item.creas.toUpperCase()}.`;
+          resultadoEl.textContent = item.creas.toUpperCase();
         };
         sugestoesEl.appendChild(li);
       });
